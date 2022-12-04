@@ -1,0 +1,37 @@
+<script type="text/javascript">
+    function test()
+    {
+        // window.alert("hello");
+
+        var id = document.getElementById("id").value;
+        var name = document.getElementById("name").value;
+
+        var url = "/coffees/" + id;
+
+        var coffee = {};
+        coffee.id = id;
+        coffee.name = name;
+
+        // {"id": "23123", "name"="My coffee" }
+
+        var json = JSON.stringify(coffee); // объект -> строка
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", url, true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.send(json);
+        // window.alert("url is: " + url);
+    }
+</script>
+<!--
+PUT /coffees/{id}
+до 20:30
+-->
+
+<p>ver 1</p>
+
+<form name="myform">
+    <input type="text" id="id" name="id"/><br/>
+    <input type="text" id="name" name="name"/>
+</form>
+<button type="button" onclick="test();">Update</button>

@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    function test()
+    {
+        // window.alert("hello");
+        var url = "/coffees/" + document.getElementById("id").value;
+        // /coffees/aeb62ee3-3111-41ff-b720-a7225b684b75
+        var xhr = new XMLHttpRequest();
+        xhr.open("DELETE", url, true);
+        xhr.send(null);
+        // window.alert("url is: " + url);
+    }
+</script>
+
+<!--
+http://localhost:8080/coffees
+DELETE http://localhost:8080/coffees/aeb62ee3-3111-41ff-b720-a7225b684b75
+
+http://localhost:8080/coffees/?id=aeb62ee3-3111-41ff-b720-a7225b684b75
+GET POST UPLOAD
+-->
+<p>ver 2</p>
+
+<form name="myform">
+    <input type="text" id="id" name="id"/>
+</form>
+<button type="button" onclick="test();">Delete</button>
