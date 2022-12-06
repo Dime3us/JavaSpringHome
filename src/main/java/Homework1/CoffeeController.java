@@ -3,10 +3,15 @@ package Homework1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -97,7 +102,7 @@ public class CoffeeController {
                 && !coffee.getName().isEmpty()
         )
             coffeeRepository.save(coffee);
-            //coffees.add(coffee);
+        //coffees.add(coffee);
         return coffee;
     }
 
@@ -143,33 +148,40 @@ public class CoffeeController {
 
          */
 
-        if(coffeeRepository.existsById(id))
-        {
+        if (coffeeRepository.existsById(id)) {
             coffeeRepository.save(coffee);
             return new ResponseEntity<>(coffee, HttpStatus.OK);
-        }
-        else {
+        } else {
             coffeeRepository.save(coffee);
             return new ResponseEntity<>(postCoffee(coffee), HttpStatus.CREATED);
         }
     }
 
 
-    /*
     // напишите метод который вернет кофе по его названию
     // если такого нет вернуть null
     // PATCH http://localhost:8080/coffees/Espresso
     @PatchMapping("/{name}")
-    public Optional<Coffee> getCoffeeByName(
-            @PathVariable String name
-    ) {
-        return
-                coffees.stream()
-                        .filter(coffee -> coffee.getName().equals(name))
-                        .findFirst();
+    List<Coffee> getCoffeeByName(@PathVariable String name) {
+
+        return coffeeRepository.findByNameLike("%" + name + "%");
+
+
     }
 
-     */
+    @Component
+    public class CoffeesInitDB implements CommandLineRunner {
 
+        @Override
+        public void run(String... args) throws Exception {
+            coffeeRepository.saveAll(List.of(
+                    new Coffee("Espresso"),
+                    new Coffee("Cappuccino"),
+                    new Coffee("Latte"),
+                    new Coffee("Ristretto"),
+                    new Coffee("Macchiato")
+            ));
+        }
+    }
 
 }

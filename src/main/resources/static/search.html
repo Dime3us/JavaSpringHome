@@ -1,0 +1,18 @@
+<script type="text/javascript">
+    function test()
+    {
+        var url = "/coffees/" + document.getElementById("name").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("PATCH", url, true);
+        window.open(url,"_self");
+
+    }
+
+</script>
+<p>ver 2</p>
+
+<form name="myform">
+    <input type="text" id="name" name="name"/>
+</form>
+<button type="button" onclick="test();">Search</button>
